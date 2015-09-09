@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - FirstPro@localhost" uuid="d114a7eb-e964-49c9-9c2c-a1c5e9231a66">
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.20 ( Revision: tonci.grgin@oracle.com-20111003110438-qfydx066wsbydkbw )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="FirstPro"/>
+    <table name="BuyCar" schema="" catalog="FirstPro" type="TABLE">
+      <column name="buyCar_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="user_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_Count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="buyCar_ID"/>
+      <foreign-key name="bc_good" columns="good_ID" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="bc_user" columns="user_ID" ref-table="Users" ref-schema="" ref-catalog="FirstPro" ref-columns="user_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="bc_user" unique="false" columns="user_ID"/>
+      <index name="bc_good" unique="false" columns="good_ID"/>
+    </table>
+    <table name="Comment" schema="" catalog="FirstPro" type="TABLE">
+      <column name="comment_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="comment_Date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="comment_context" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_ID" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="comment_ID"/>
+      <foreign-key name="fk_com_good" columns="good_ID" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_com_user" columns="user_ID" ref-table="Users" ref-schema="" ref-catalog="FirstPro" ref-columns="user_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_com_user" unique="false" columns="user_ID"/>
+      <index name="fk_com_good" unique="false" columns="good_ID"/>
+    </table>
+    <table name="GoodImages" schema="" catalog="FirstPro" type="TABLE">
+      <column name="gm_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_Resource" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="gm_ID"/>
+      <foreign-key name="fk_gm_good" columns="good_ID" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_gm_good" unique="false" columns="good_ID"/>
+    </table>
+    <table name="Goods" schema="" catalog="FirstPro" type="TABLE">
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="good_Batch" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="good_Name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="good_Price" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="good_MadeTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="good_ExpireTime" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="good_SeeCount" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="good_State" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ=="/>
+      <column name="good_RID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="PRIMARY" columns="good_ID,good_Batch"/>
+      <exported-key name="bc_good" table="BuyCar" schema="" catalog="FirstPro" columns="good_ID"/>
+      <exported-key name="fk_com_good" table="Comment" schema="" catalog="FirstPro" columns="good_ID"/>
+      <exported-key name="fk_gm_good" table="GoodImages" schema="" catalog="FirstPro" columns="good_ID"/>
+      <exported-key name="Inner_good" table="InnerStock" schema="" catalog="FirstPro" columns="good_ID,good_Batch"/>
+      <exported-key name="orderDetail_good" table="OrderDetails" schema="" catalog="FirstPro" columns="good_ID"/>
+      <exported-key name="outter_good" table="OutterStock" schema="" catalog="FirstPro" columns="good_ID,good_Batch"/>
+      <exported-key name="good_stock" table="Stocks" schema="" catalog="FirstPro" columns="good_ID,good_Batch"/>
+    </table>
+    <table name="InnerStock" schema="" catalog="FirstPro" type="TABLE">
+      <column name="inner_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_Batch" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="manager_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="inner_Time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="inner_Count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="inner_ID"/>
+      <foreign-key name="Inner_good" columns="good_ID,good_Batch" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID,good_Batch" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="Inner_manager" columns="manager_ID" ref-table="Managers" ref-schema="" ref-catalog="FirstPro" ref-columns="manager_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="Inner_good" unique="false" columns="good_ID,good_Batch"/>
+      <index name="Inner_manager" unique="false" columns="manager_ID"/>
+    </table>
+    <table name="Managers" schema="" catalog="FirstPro" type="TABLE">
+      <column name="manager_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="manager_Name" sqlType="VARCHAR" precision="18" scale="0" nullable="true" jdbcType="12"/>
+      <column name="manager_Pass" sqlType="VARCHAR" precision="18" scale="0" nullable="true" jdbcType="12"/>
+      <column name="manager_Resource" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="manager_State" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="manager_ID"/>
+      <exported-key name="Inner_manager" table="InnerStock" schema="" catalog="FirstPro" columns="manager_ID"/>
+      <exported-key name="outter_manager" table="OutterStock" schema="" catalog="FirstPro" columns="manager_ID"/>
+    </table>
+    <table name="OrderDetails" schema="" catalog="FirstPro" type="TABLE">
+      <column name="order_DetailID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="order_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_Count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="order_DetailID"/>
+      <foreign-key name="orderDetail_good" columns="good_ID" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="orderDetail_order" columns="order_ID" ref-table="Orders" ref-schema="" ref-catalog="FirstPro" ref-columns="order_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="orderDetail_order" unique="false" columns="order_ID"/>
+      <index name="orderDetail_good" unique="false" columns="good_ID"/>
+    </table>
+    <table name="Orders" schema="" catalog="FirstPro" type="TABLE">
+      <column name="order_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="order_Time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="uesr_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="order_State" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="order_ID"/>
+      <foreign-key name="order_user" columns="uesr_ID" ref-table="Users" ref-schema="" ref-catalog="FirstPro" ref-columns="user_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="orderDetail_order" table="OrderDetails" schema="" catalog="FirstPro" columns="order_ID"/>
+      <index name="order_user" unique="false" columns="uesr_ID"/>
+    </table>
+    <table name="OutterStock" schema="" catalog="FirstPro" type="TABLE">
+      <column name="outter_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_Batch" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="manager_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="outter_Time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="outter_Count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="outter_ID"/>
+      <foreign-key name="outter_good" columns="good_ID,good_Batch" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID,good_Batch" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="outter_manager" columns="manager_ID" ref-table="Managers" ref-schema="" ref-catalog="FirstPro" ref-columns="manager_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="outter_good" unique="false" columns="good_ID,good_Batch"/>
+      <index name="outter_manager" unique="false" columns="manager_ID"/>
+    </table>
+    <table name="Stocks" schema="" catalog="FirstPro" type="TABLE">
+      <column name="stock_ID" sqlType="CHAR" precision="32" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="good_ID" sqlType="CHAR" precision="32" scale="0" nullable="true" jdbcType="1"/>
+      <column name="good_Batch" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="good_Count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="stock_ID"/>
+      <foreign-key name="good_stock" columns="good_ID,good_Batch" ref-table="Goods" ref-schema="" ref-catalog="FirstPro" ref-columns="good_ID,good_Batch" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="good_stock" unique="false" columns="good_ID,good_Batch"/>
+    </table>
+    <table name="Users" schema="" catalog="FirstPro" type="TABLE">
+      <column name="user_ID" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="user_Name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_Pass" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_RealName" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_Birth" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="user_Image" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_CreateDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="user_Gender" sqlType="CHAR" precision="12" scale="0" nullable="true" jdbcType="1"/>
+      <column name="user_State" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="user_ID"/>
+      <exported-key name="bc_user" table="BuyCar" schema="" catalog="FirstPro" columns="user_ID"/>
+      <exported-key name="fk_com_user" table="Comment" schema="" catalog="FirstPro" columns="user_ID"/>
+      <exported-key name="order_user" table="Orders" schema="" catalog="FirstPro" columns="uesr_ID"/>
+    </table>
+  </data-source>
+</component>
